@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.app {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    text-align: center;
+    position: relative;
+    scrollbar-width: 0;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  .app-header {
+    background-color: #f8f8f7;
+    padding: 60px 20px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  h1 {
+    color: #000;
+    font-size: 24px;
   }
-}
+  
+  p {
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .section {
+    margin: 40px 20px;
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  a {
+    color: #007aff; /* Apple's default link color */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }

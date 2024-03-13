@@ -1,0 +1,73 @@
+.console {
+    background-color: #292a30;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    padding: 10px;
+    overflow: auto;
+    height: 200px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* Use flex to make .output take all available space */
+    display: flex;
+    flex-direction: column;
+}
+
+.output {
+    white-space: pre-wrap;
+    overflow-y: scroll;
+    flex: 1; /* Take up remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    scrollbar-width: thin;
+    scrollbar-color: #9a9b9d #35363b;
+}
+
+.output p {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 20px;
+    padding-left: 10px;
+    background-color: #292a30;
+}
+
+.input * {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
+
+.input input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.input input:focus {
+    outline: none;
+}
+
+.output::-webkit-scrollbar {
+    width: 10px; /* Set the width of the scrollbar */
+}
+
+.output::-webkit-scrollbar-thumb {
+    background-color: #9a9b9d; /* Use custom color for thumb */
+}
+  
+.output::-webkit-scrollbar-track {
+    background-color: #35363b; /* Use custom color for track */
+}
