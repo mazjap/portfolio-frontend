@@ -1,16 +1,16 @@
-import React from 'react';
+import { useEffect } from 'react';
 import Console from './Console';
 import { useConsole } from './ConsoleContext';
 
 import './App.css';
 
 function App() {
-    const { addLog } = useConsole();
+    const { addLog, consoleSize } = useConsole();
 
     const handleKeyDown = (e) => {
         if ((e.metaKey || e.ctrlKey)) {
             if (e.key === 's') {
-                e.preventDefault(); // Prevent the default behavior
+                e.preventDefault();
             } else if (e.key === 'b') {
                 addLog("Build Succeeded");
                 e.preventDefault();
@@ -18,50 +18,123 @@ function App() {
         }
     };
     
-    React.useEffect(() => {
+    useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     });
 
+    const projects = [
+        {
+            id: 1,
+            title: 'iOS App - Weather Forecast',
+            description: 'A weather forecasting app that provides accurate weather information based on location.',
+            image: 'weather-app.jpg',
+        },
+        {
+            id: 2,
+            title: 'iOS Game - Space Invaders',
+            description: 'A classic space-themed game where players defend against invading aliens.',
+            image: 'space-invaders.jpg',
+        },
+        // Add more project objects as needed
+    ];
+
+    const skills = [
+        'Swift',
+        'SwiftUI',
+        'UIKit',
+        'Core Data',
+        // Add more skills as needed
+    ];
+
+    const experience = [
+        {
+            id: 1,
+            title: 'iOS Developer Intern',
+            company: 'XYZ Company',
+            duration: 'June 2022 - August 2022',
+            description: 'Worked on developing and maintaining iOS applications using Swift and UIKit.',
+        },
+        {
+            id: 2,
+            title: 'Freelance iOS Developer',
+            company: 'ABC Agency',
+            duration: 'January 2021 - Present',
+            description: 'Collaborated with clients to develop customized iOS applications that meet their specific needs.',
+        },
+        // Add more experience objects as needed
+    ];
+
+    const education = [
+        {
+            id: 1,
+            degree: 'Bachelor of Science in Computer Science',
+            university: 'XYZ University',
+            duration: '2018 - 2022',
+        },
+        {
+            id: 2,
+            degree: 'iOS Development Certification',
+            university: 'Online Course',
+            duration: '2020',
+        },
+        // Add more education objects as needed
+    ];
+
     return (
         <div className="app">
             <header className="app-header">
-                <h1>Jordan Christensen</h1>
-                <p>iOS Developer</p>
-                <p>Dedicated to crafting elegant solutions in the world of iOS apps.</p>
+                <h1>My Portfolio</h1>
+                <p>Welcome to my portfolio website!</p>
             </header>
-            <main>
-                <section className="section">
-                    <h2>Resume</h2>
-                    <p>A glimpse into my professional journey and the skills I bring to the table.</p>
-                    <a href="path/to/your/resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
-                </section>
-                <section className="section">
-                    <h2>Blog</h2>
-                    <article>
-                        <h3>Exploring SwiftUI's Latest Features</h3>
-                        <p>June 10, 2024 - SwiftUI continues to evolve, and with its latest update, we're introduced to a slew of new capabilities that streamline the development process...</p>
-                        <a href="#">Read more</a>
-                    </article>
-                    <article>
-                        <h3>Understanding Combine for Reactive Swift</h3>
-                        <p>May 22, 2024 - Combine is a declarative Swift API for processing values over time. These concepts are fundamental for modern iOS apps, and here's how you can grasp and apply them...</p>
-                        <a href="#">Read more</a>
-                    </article>
-                </section>
-                <section className="section">
+
+            <main className="app-main" style={{ marginBottom : consoleSize?.height ?? 0 }}>
+                <section className="section projects-section">
                     <h2>Projects</h2>
-                    <div className="project">
-                        <h3>Weather Now</h3>
-                        <p>An intuitive app providing real-time weather updates and forecasts. Developed with Swift, leveraging CoreLocation for local weather data.</p>
-                    </div>
-                    <div className="project">
-                        <h3>Meal Planner</h3>
-                        <p>A daily meal planning app that helps users track their nutrition and caloric intake, built using SwiftUI and integrated with HealthKit.</p>
+                    <div className="projects-container">
+                        {projects.map((project) => (
+                            <div key={project.id} className="project-card">
+                                <img src={project.image} alt={project.title} />
+                                <h3>{project.title}</h3>
+                                <p>{project.description}</p>
+                            </div>
+                        ))}
                     </div>
                 </section>
-                <Console/>
-            </main>
+
+                <section className="section skills-section">
+                    <h2>Skills</h2>
+                    <ul className="skills-list">
+                        {skills.map((skill) => (
+                            <li key={skill}>{skill}</li>
+                        ))}
+                    </ul>
+                </section>
+
+                <section className="section experience-section">
+                    <h2>Experience</h2>
+                    {experience.map((exp) => (
+                        <div key={exp.id} className="experience-card">
+                            <h3>{exp.title}</h3>
+                            <p>{exp.company}</p>
+                            <p>{exp.duration}</p>
+                            <p>{exp.description}</p>
+                        </div>
+                    ))}
+                </section>
+
+                <section className="section education-section">
+                    <h2>Education</h2>
+                    {education.map((edu) => (
+                        <div key={edu.id} className="education-card">
+                            <h3>{edu.degree}</h3>
+                            <p>{edu.university}</p>
+                            <p>{edu.duration}</p>
+                        </div>
+                    ))}
+                </section>
+            </main >
+            <Console />
         </div>
     );
 }

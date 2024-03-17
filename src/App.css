@@ -7,34 +7,118 @@
     text-align: center;
     position: relative;
     scrollbar-width: 0;
-  }
+}
   
-  .app-header {
+.app-header {
     background-color: #f8f8f7;
     padding: 60px 20px;
-  }
+}
   
-  h1 {
+h1 {
     color: #000;
     font-size: 24px;
-  }
+}
   
-  p {
+p {
     color: #666;
     font-size: 16px;
-  }
+}
   
-  .section {
-    margin: 40px 20px;
-    padding: 20px;
+.section {
+    margin-bottom: 40px;
     border-bottom: 1px solid #eaeaea;
-  }
+}
   
-  a {
-    color: #007aff; /* Apple's default link color */
+a {
+    color: #007aff;
     text-decoration: none;
-  }
+}
   
-  a:hover {
+a:hover {
     text-decoration: underline;
-  }
+}
+
+.console-padding {
+    padding-bottom: 212px;
+}
+
+.app {
+    text-align: center;
+    padding: 20px;
+}
+
+.app-header {
+    margin-bottom: 40px;
+}
+
+.app-header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+/* .app-main {
+    margin-bottom: 40px;
+} */
+
+.projects-section {
+    margin-bottom: 40px;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project-card {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.skills-section {
+    margin-bottom: 40px;
+}
+
+.skills-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.skills-list li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.experience-section,
+.education-section {
+    margin-bottom: 40px;
+}
+
+.experience-card,
+.education-card {
+    text-align: left;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.experience-card h3,
+.education-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.app-footer p {
+    margin: 0;
+}

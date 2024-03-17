@@ -4,8 +4,6 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: medium;
     padding: 10px;
-    overflow: auto;
-    height: 200px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -19,28 +17,88 @@
     white-space: pre-wrap;
     overflow-y: scroll;
     flex: 1; /* Take up remaining space */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    text-align: left;
     scrollbar-width: thin;
     scrollbar-color: #9a9b9d #35363b;
+    word-wrap: break-word;
 }
 
-.output p {
+.options {
+    display: flex;
+}
+
+.options button {
+    background: none;
+	color: inherit;
+	border: none;
+    border-radius: 5px;
+	padding: 0 4px;
+	font-size: small;
+}
+
+.options .radio-selected {
+    background-color: #263f5a;
+}
+
+.options button:hover {
+    background: #393a40;
+	color: inherit;
+}
+
+.options .radio-selected:hover {
+    background-color: #263f5a;
+}
+
+.options input {
+    background-color: #323232;
+    border-radius: 5px;
+    padding-left: 10px;
+    outline: 0.1px solid #505153;
+    border: none;
+    color: white;
+}
+
+.options input:focus {
+    background-color: #1e1e1e;
+}
+
+.console-button {
+    height: 100%;
+}
+
+.console-icon {
+    transition: fill 0.3s;
+    transition: stroke 0.3s;
+    width: 16px;
+    height: 16px;
+}
+
+.console p {
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: medium;
+    margin: 0;
+    text-align: left;
+}
+
+.floating {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    background-color: #292a30;
+}
+
+.spacer {
+    flex: 1;
 }
 
 .input {
     display: flex;
     align-items: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 20px;
-    padding-left: 10px;
-    background-color: #292a30;
+    margin: 0;
+    padding: 0;
 }
 
 .input * {
@@ -60,14 +118,32 @@
     outline: none;
 }
 
+.log {
+    word-break: break-all;
+}
+
 .output::-webkit-scrollbar {
-    width: 10px; /* Set the width of the scrollbar */
+    width: 8px;
 }
 
 .output::-webkit-scrollbar-thumb {
-    background-color: #9a9b9d; /* Use custom color for thumb */
+    background-color: #9a9b9d;
+    border-radius: 4px;
 }
   
 .output::-webkit-scrollbar-track {
-    background-color: #35363b; /* Use custom color for track */
+    background-color: #35363b;
+}
+
+.popover {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: darkgray;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 100;
 }
