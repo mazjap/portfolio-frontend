@@ -13,16 +13,17 @@ const helpMessage = 'Usage:\n' + formatCommands([
 
 function Console() {
     const { logs, addLog, clearLogs, isOutputHidden, toggleOutputHidden, isShowingOptions, toggleOptionsPopover, setConsoleSize } = useConsole();
+    const outputRef = useRef(null);
+    const floatingRef = useRef(null);
+    const consoleRef = useRef(null);
+    const popoverRef = useRef(null);
+
     const [input, setInput] = useState('');
     const [filter, setFilter] = useState('');
     const [isExecutableSelected, setExecutableSelected] = useState(true);
-
-    const outputRef = useRef(null);
-    const floatingRef = useRef(null);
-    const [optionsButtonPosition, optionsButtonRef] = usePosition();
     const [floatingSize, setFloatingSize] = useState({ width: 0, height: 0 });
 
-    const consoleRef = useRef(null);
+    const [optionsButtonPosition, optionsButtonRef] = usePosition();
 
     const handleInput = () => {
         if (input === 'clear') {
@@ -46,7 +47,13 @@ function Console() {
         if (e.key === 'Enter') handleInput();
     };
 
-    useEffect(() => {
+    useEffect(() => { // Scroll to the bottom of the output on change of logs
+        if (outputRef.current) {
+            outputRef.current.scrollTop = outputRef.current.scrollHeight;
+        }
+    }, [logs]);
+
+    useEffect(() => { // Log welcome message if no other logs exist
         let isMounted = true;
         let timer = setTimeout(() => {
             if (isMounted && logs.length === 0) addLog('Welcome to my portfolio. Type "help" to get started');
@@ -58,20 +65,15 @@ function Console() {
         };
     }, []); // No dependencies because this useEffect should only ever run once
 
-    useEffect(() => {
-        // Scroll to the bottom of the output on log change
-        if (outputRef.current) {
-            outputRef.current.scrollTop = outputRef.current.scrollHeight;
-        }
-    }, [logs]);
-
-    useEffect(() => {
+    useEffect(() => { // Calculate size of .console and .floating when .console's direct children are mutated
         const targetNode = consoleRef.current;
         if (!targetNode) return;
 
+        const sizeOf = node => { return { width: node.offsetWidth, height: node.offsetHeight }}
+
         // Set size on initial load
-        setConsoleSize({ width: targetNode.offsetWidth, height: targetNode.offsetHeight });
-        if (floatingRef.current) setFloatingSize({ width: floatingRef.current?.offsetWidth, height: floatingRef.current?.offsetHeight });
+        setConsoleSize(sizeOf(targetNode));
+        if (floatingRef.current) setFloatingSize(sizeOf(floatingRef.current));
 
         const config = {
             childList: true, // Watch for direct child node additions/removals
@@ -83,11 +85,12 @@ function Console() {
                 if (mutation.type !== 'childList') continue;
 
                 let wasOutputMutated = false;
-                for (let node of [...mutation.addedNodes, ...mutation.removedNodes]) {
-                    if (node.nodeType === 1 && node.classList.contains('output')) {
-                        wasOutputMutated = true;
-                        break;
-                    }
+                const mutatedNodes = [...mutation.addedNodes, ...mutation.removedNodes]
+                for (let node of mutatedNodes) {
+                    if (node.nodeType !== 1 || !node.classList.contains('output')) return;
+
+                    wasOutputMutated = true;
+                    break;
                 }
 
                 if (!wasOutputMutated) continue;
@@ -102,16 +105,30 @@ function Console() {
         const observer = new MutationObserver(callback);
         observer.observe(targetNode, config);
 
-        // Cleanup on component unmount
         return () => observer.disconnect();
-    }, []); // Ensure this effect is only run on mount and unmount
+    }, []); // No dependencies because this useEffect should only ever run once
+
+    useEffect(() => { // Close popover when user clicks outside of it
+        const handleClickOutside = (e) => {
+            if (
+                !isShowingOptions || // Ensure options aren't hidden
+                (optionsButtonRef.current && optionsButtonRef.current.contains(e.target)) || // Ensure click was not on the options button
+                !popoverRef.current || // Ensure popoverRef exists
+                popoverRef.current.contains(e.target) // Ensure click was not within the popover
+            ) return;
+
+            toggleOptionsPopover();
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+    }, [popoverRef, toggleOptionsPopover, isShowingOptions]);
 
     return (
-        <div className='console-container'>
+        <>
             <div className='console' id='console' style={isOutputHidden ? null : { height: '200px' }} ref={ consoleRef }>
                 {!isOutputHidden && (
                     <div className='output' ref={ outputRef } style={{ paddingBottom : floatingSize.height }}>
-                        { logs.filter(({ message }) => { return message.includes(filter) }).map(({ message, level }, index) => <p className='log' key={[index + message + level].join("-")}>{logPrefixForLevel(level) + ' ' + message}</p>) }
+                        { logs.filter(({ message }) => message.includes(filter)).map(({ message, level }, index) => <p className='log' key={[index + message + level].join("-")}>{ logPrefixForLevel(level) + ' ' + message }</p>) }
                     </div>
                 )}
                 <div className='floating' ref={ floatingRef } style={{
@@ -149,11 +166,11 @@ function Console() {
                 </div>
             </div>
             {isShowingOptions && (
-                <div className='popover' style={ optionsButtonPosition }>
-                    <button onClick={ toggleOutputHidden }>{ isOutputHidden ? 'Show Output' : 'Hide Output' }</button>
+                <div className='popover' ref={ popoverRef } style={ optionsButtonPosition }>
+                    <button className='popover-button' onClick={ toggleOutputHidden }>{ isOutputHidden ? 'Show Output' : 'Hide Output' }</button>
                 </div>
             )}
-        </div>
+        </>
     );
 }
 
