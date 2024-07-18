@@ -35,9 +35,9 @@ function App() {
         <Skills />
         <Experience />
         <Education />
-        <Contact />
       </main >
 
+      <Contact />
       <Footer />
       <Console />
     </div>

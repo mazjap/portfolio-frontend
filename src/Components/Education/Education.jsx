@@ -3,17 +3,25 @@ import './Education.css';
 const defaultEducation = [
   {
     id: 1,
-    degree: 'Bachelor of Science in Computer Science',
-    university: 'XYZ University',
-    duration: '2018 - 2022',
+    degree: 'Web Development Certification',
+    university: 'Mountainland Technical College',
+    duration: '2020 - 2021 (1 year)',
+    link: 'https://mtec.edu/programs/web-programming-development/'
   },
   {
     id: 2,
     degree: 'iOS Development Certification',
-    university: 'Online Course',
-    duration: '2020',
+    university: 'Bloom Institute of Technology (formerly Lambda School)',
+    duration: '2019 - 2020 (1 year)',
+    link: 'https://www.bloomtech.com/'
   },
-  // Add more education objects as needed
+  {
+    id: 3,
+    degree: 'AP Computer Science',
+    university: 'Shanghai American School (上海美国学校)',
+    duration: '2016 - 2018 (2 years)',
+    link: 'https://www.saschina.org/'
+  },
 ];
 
 export default function Education() {
@@ -27,6 +35,9 @@ export default function Education() {
           <h3>{edu.degree}</h3>
           <p>{edu.university}</p>
           <p>{edu.duration}</p>
+          { edu.link && (
+            <a href={edu.link}>Learn More</a>
+          )}
         </div>
       ))}
     </section>
