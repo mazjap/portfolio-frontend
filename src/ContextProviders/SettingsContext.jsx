@@ -5,53 +5,53 @@ const SettingsContext = createContext();
 const useSettings = () => useContext(SettingsContext);
 
 const SettingsProvider = ({ children }) => {
-    const [isUsingLightTheme, setIsUsingLightTheme] = useState('light');
-    const [isConsoleExpanded, setIsConsoleExpanded] = useState(false);
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isUsingLightTheme, setIsUsingLightTheme] = useState('light');
+  const [isConsoleExpanded, setIsConsoleExpanded] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-    useEffect(() => {
-        const storedTheme = localStorage.getItem('theme');
-        const storedConsole = localStorage.getItem('isConsoleOpen');
-        const storedSidebar = localStorage.getItem('isSidebarOpen');
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    const storedConsole = localStorage.getItem('isConsoleOpen');
+    const storedSidebar = localStorage.getItem('isSidebarOpen');
 
-        if (storedTheme) setIsUsingLightTheme(storedTheme);
-        if (storedConsole) setIsConsoleExpanded(storedConsole === 'true');
-        if (storedSidebar) setSidebarOpen(storedSidebar === 'true');
-    }, []);
+    if (storedTheme) setIsUsingLightTheme(storedTheme);
+    if (storedConsole) setIsConsoleExpanded(storedConsole === 'true');
+    if (storedSidebar) setSidebarOpen(storedSidebar === 'true');
+  }, []);
 
-    const toggleTheme = (newValue) => {
-        const isLight = newValue ?? !isUsingLightTheme;
+  const toggleTheme = (newValue) => {
+    const isLight = newValue ?? !isUsingLightTheme;
 
-        setIsUsingLightTheme(isLight);
-        localStorage.setItem(isLight);
-    };
+    setIsUsingLightTheme(isLight);
+    localStorage.setItem(isLight);
+  };
 
-    const toggleConsole = () => {
-        setIsConsoleExpanded((prev) => {
-            const newState = !prev;
-            localStorage.setItem('isConsoleOpen', newState);
-            return newState;
-        });
-    };
+  const toggleConsole = () => {
+    setIsConsoleExpanded((prev) => {
+      const newState = !prev;
+      localStorage.setItem('isConsoleOpen', newState);
+      return newState;
+    });
+  };
 
-    const toggleSidebar = () => {
-        setSidebarOpen((prev) => {
-            const newState = !prev;
-            localStorage.setItem('isSidebarOpen', newState);
-            return newState;
-        });
-    };
+  const toggleSidebar = () => {
+    setSidebarOpen((prev) => {
+      const newState = !prev;
+      localStorage.setItem('isSidebarOpen', newState);
+      return newState;
+    });
+  };
 
-    const value = {
-        isUsingLightTheme,
-        isConsoleExpanded,
-        isSidebarOpen,
-        toggleTheme,
-        toggleConsole,
-        toggleSidebar,
-    };
+  const value = {
+    isUsingLightTheme,
+    isConsoleExpanded,
+    isSidebarOpen,
+    toggleTheme,
+    toggleConsole,
+    toggleSidebar,
+  };
 
-    return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;
+  return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;
 };
 
 export { SettingsProvider, useSettings };
