@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import { ConsoleProvider } from './ConsoleContext';
+import { ConsoleProvider } from './ContextProviders/ConsoleContext';
 import { SettingsProvider } from './ContextProviders/SettingsContext';
 
 import './index.css';

@@ -6,7 +6,7 @@ const useSettings = () => useContext(SettingsContext);
 
 const SettingsProvider = ({ children }) => {
     const [isUsingLightTheme, setIsUsingLightTheme] = useState('light');
-    const [isConsoleOpen, setConsoleOpen] = useState(false);
+    const [isConsoleExpanded, setIsConsoleExpanded] = useState(false);
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const SettingsProvider = ({ children }) => {
         const storedSidebar = localStorage.getItem('isSidebarOpen');
 
         if (storedTheme) setIsUsingLightTheme(storedTheme);
-        if (storedConsole) setConsoleOpen(storedConsole === 'true');
+        if (storedConsole) setIsConsoleExpanded(storedConsole === 'true');
         if (storedSidebar) setSidebarOpen(storedSidebar === 'true');
     }, []);
 
@@ -27,7 +27,7 @@ const SettingsProvider = ({ children }) => {
     };
 
     const toggleConsole = () => {
-        setConsoleOpen((prev) => {
+        setIsConsoleExpanded((prev) => {
             const newState = !prev;
             localStorage.setItem('isConsoleOpen', newState);
             return newState;
@@ -44,7 +44,7 @@ const SettingsProvider = ({ children }) => {
 
     const value = {
         isUsingLightTheme,
-        isConsoleOpen,
+        isConsoleExpanded,
         isSidebarOpen,
         toggleTheme,
         toggleConsole,

@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ConsoleButton from './ConsoleButton';
-import { useConsole } from './ConsoleContext';
-import usePosition from './Hooks/usePosition';
+import { useConsole } from '../../ContextProviders/ConsoleContext';
+import { useSettings } from '../../ContextProviders/SettingsContext';
 import { formatCommands, logPrefixForLevel } from './consoleUtils';
 
 import './Console.css';
@@ -12,18 +12,21 @@ const helpMessage = 'Usage:\n' + formatCommands([
 ]);
 
 function Console() {
-    const { logs, addLog, clearLogs, isOutputHidden, toggleOutputHidden, isShowingOptions, toggleOptionsPopover, setConsoleSize } = useConsole();
+    const { logs, addLog, clearLogs, isShowingOptions, toggleOptionsPopover, setConsoleSize } = useConsole();
+    const { isConsoleExpanded, toggleConsole } = useSettings();
+
     const outputRef = useRef(null);
     const floatingRef = useRef(null);
     const consoleRef = useRef(null);
     const popoverRef = useRef(null);
+    const optionsRowRef = useRef(null);
+    const optionsButtonRef = useRef(null);
 
     const [input, setInput] = useState('');
     const [filter, setFilter] = useState('');
     const [isExecutableSelected, setExecutableSelected] = useState(true);
     const [floatingSize, setFloatingSize] = useState({ width: 0, height: 0 });
-
-    const [optionsButtonPosition, optionsButtonRef] = usePosition();
+    const [optionsButtonPosition, setOptionsButtonPosition] = useState({ bottom: 0, left: 0 });
 
     const handleInput = () => {
         if (input === 'clear') {
@@ -123,19 +126,37 @@ function Console() {
         document.addEventListener('mousedown', handleClickOutside);
     }, [popoverRef, toggleOptionsPopover, isShowingOptions]);
 
+    const calculatePosition = useCallback(() => {
+        const node = optionsButtonRef.current;
+        if (!node) return;
+
+        const rect = node.getBoundingClientRect();
+        setOptionsButtonPosition({
+            bottom: window.innerHeight - rect.bottom,
+            left: rect.left + window.scrollX
+        });
+    }, []);
+
+    useEffect(() => {
+        const getCurrentPosition = () => calculatePosition(optionsButtonRef.current);
+        getCurrentPosition();
+        window.addEventListener('resize', getCurrentPosition);
+        return () => window.removeEventListener('resize', getCurrentPosition);
+    }, [calculatePosition, optionsButtonRef]);
+
     return (
         <>
-            <div className='console' id='console' style={isOutputHidden ? null : { height: '200px' }} ref={ consoleRef }>
-                {!isOutputHidden && (
+            <div className='console' id='console' style={isConsoleExpanded ? { height: '200px' } : null } ref={ consoleRef }>
+                { isConsoleExpanded && (
                     <div className='output' ref={ outputRef } style={{ paddingBottom : floatingSize.height }}>
                         { logs.filter(({ message }) => message.includes(filter)).map(({ message, level }, index) => <p className='log' key={[index + message + level].join("-")}>{ logPrefixForLevel(level) + ' ' + message }</p>) }
                     </div>
                 )}
                 <div className='floating' ref={ floatingRef } style={{
-                    right: isOutputHidden ? '0' : '20px',
-                    paddingTop: isOutputHidden ? '5px' : '0'
+                    right: isConsoleExpanded ? '20px' : '0',
+                    paddingTop: isConsoleExpanded ? '0' : '5px'
                 }}>
-                    {!isOutputHidden && (
+                    { isConsoleExpanded && (
                         <div className='input'>
                             <p>(lldb)</p>
                             <input
@@ -146,28 +167,35 @@ function Console() {
                             />
                         </div>
                     )}
-                    <div className='options' id='console-options'>
-                        <button className={ isExecutableSelected ? 'radio-selected' : null } onClick={() => setExecutableSelected(true) }>Executable</button>
-                        <button className={ isExecutableSelected ? null : 'radio-selected' } onClick={() => setExecutableSelected(false) }>Previews</button>
+                    <div className='options' id='console-options' ref={ optionsRowRef }>
+                        <button className={ isExecutableSelected ? 'radio-selected' : null } onClick={ () => setExecutableSelected(true) }>Executable</button>
+                        <button className={ isExecutableSelected ? null : 'radio-selected' } onClick={ () => setExecutableSelected(false) }>Previews</button>
                         <p>|</p>
-                        <ConsoleButton svg='Options' isActive={ isShowingOptions } onClick={ toggleOptionsPopover } ref={ optionsButtonRef } />
+                        <ConsoleButton svg='options' isActive={ isShowingOptions } onClick={ toggleOptionsPopover } ref={ optionsButtonRef } />
                         <div className='spacer' />
-                        <input
-                            type='text'
-                            value={ filter }
-                            onChange={ (e) => setFilter(e.target.value) }
-                            placeholder='Filter'
-                        />
-                        <ConsoleButton svg='Trash' isActive={ true } onClick={ clearLogs } />
-                        <p>|</p>
-                        <ConsoleButton svg='SidebarLeft' isActive={ false } onClick={ () => { addLog('Left sidebar clicked') }} />
-                        <ConsoleButton svg='SidebarRight' isActive={ false } onClick={ () => { addLog('Right sidebar clicked') }} />
+                        <span className='copyright'>&copy; { new Date().getFullYear() } Jordan Christensen</span>
+                        { isConsoleExpanded && (
+                            <input
+                                type='text'
+                                value={ filter }
+                                onChange={ (e) => setFilter(e.target.value) }
+                                placeholder='Filter'
+                            />
+                        )}
+                        { isConsoleExpanded && (
+                            <>
+                                <ConsoleButton svg='trash' isActive={ true } onClick={ clearLogs } />
+                                <p>|</p>
+                            </>
+                        )}
+                        <ConsoleButton svg='sidebarLeft' isActive={ false } onClick={ () => { addLog('Left sidebar clicked') }} />
+                        <ConsoleButton svg='sidebarRight' isActive={ false } onClick={ () => { addLog('Right sidebar clicked') }} />
                     </div>
                 </div>
             </div>
-            {isShowingOptions && (
+            { isShowingOptions && (
                 <div className='popover' ref={ popoverRef } style={ optionsButtonPosition }>
-                    <button className='popover-button' onClick={ toggleOutputHidden }>{ isOutputHidden ? 'Show Output' : 'Hide Output' }</button>
+                    <button className='popover-button' onClick={ toggleConsole }>{ isConsoleExpanded ? 'Hide Output' : 'Show Output' }</button>
                 </div>
             )}
         </>

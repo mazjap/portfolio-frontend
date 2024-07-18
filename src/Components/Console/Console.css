@@ -180,3 +180,10 @@
 .popover-button:hover {
     background-color: rgba(0, 122, 255, 0.8);
 }
+
+.copyright {
+    font-size: 8px;
+    align-self: flex-start;
+    line-height: 16px;
+    margin-right: 8px;
+}

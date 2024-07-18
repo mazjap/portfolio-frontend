@@ -1,0 +1,19 @@
+.skills-section {
+  margin-bottom: 40px;
+}
+
+.skills-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.skills-list li:not(:last-child) {
+  display: inline-block;
+
+  margin-right: 10px;
+}
+
+.skills-list li:not(:last-child)::after {
+  margin-left: 10px;
+  content: "•";
+}
