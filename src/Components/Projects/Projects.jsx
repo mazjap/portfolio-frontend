@@ -12,14 +12,6 @@ const defaultProjects = [
   },
   {
     id: 2,
-    title: 'NeoMusic',
-    language: 'Swift',
-    techStack: 'SwiftUI, MusicKit, ',
-    description: 'A simple, but elegant music player with fun features and a design based in Neomorphism. Music is a passion of mine, so what better way to gain a better understanding of SwiftUI and custom components then making a music player.',
-    images: [...[1, 2, 3, 4].map(imgName => process.env.PUBLIC_URL + '/images/projects/neomusic/' + imgName + '.PNG'), process.env.PUBLIC_URL + '/images/projects/neomusic/5.MP4'],
-  },
-  {
-    id: 3,
     title: 'Habbit Hacker',
     language: 'Swift',
     techStack: 'UIKit, CoreData, CloudKit, Local Notifications, JTAppleCalendar',
@@ -27,7 +19,7 @@ const defaultProjects = [
     images: [1, 2, 3, 4, 5].map(imgName => process.env.PUBLIC_URL + '/images/projects/habithacker/' + imgName + '.png'),
   },
   {
-    id: 4,
+    id: 3,
     title: 'Community Calendar',
     language: 'Swift',
     techStack: 'UIKit, GraphQL, Auth0, CoreData, Notification Design Pattern',
@@ -35,16 +27,69 @@ const defaultProjects = [
     images: [1, 2, 3, 4, 5, 6].map(imgName => process.env.PUBLIC_URL + '/images/projects/communitycalendar/' + imgName + '.png'),
   },
   {
+    id: 4,
+    title: 'Settings Prototype',
+    language: 'Swift',
+    techStack: 'SwiftUI',
+    description: 'Built a static settings app clone to prove understanding of SwiftUI Lists, sections, forms, etc.',
+    images: [1].map(imgName => process.env.PUBLIC_URL + '/images/projects/settings/' + imgName + '.png'),
+  },
+  {
     id: 5,
+    title: 'NeoMusic',
+    language: 'Swift',
+    techStack: 'SwiftUI, MusicKit, ',
+    description: 'A simple, but elegant music player with fun features and a design based in Neomorphism. Music is a passion of mine, so what better way to gain a better understanding of SwiftUI and custom components then making a music player.',
+    images: [...[1, 2, 3, 4].map(imgName => process.env.PUBLIC_URL + '/images/projects/neomusic/' + imgName + '.PNG'), process.env.PUBLIC_URL + '/images/projects/neomusic/5.MP4'],
+  },
+  {
+    id: 6,
+    title: "2048 Clone",
+    language: "Swift",
+    techStack: 'SwiftUI',
+    description: 'Built a 2048 clone, because I like 2048 as well as building my own versions of things.',
+    images: [1, 2, 3, 4].map(imgName => process.env.PUBLIC_URL + '/images/projects/2048/' + imgName + '.png'),
+  },
+  {
+    id: 7,
+    title: "fWords",
+    language: "Swift",
+    techStack: 'SwiftUI',
+    description: 'Built a Wordle clone, because I like Wordle, and building my own versions of things.',
+    images: [1, 2, 3, 4, 5, 6].map(imgName => process.env.PUBLIC_URL + '/images/projects/fwords/' + imgName + '.png'),
+  },
+  {
+    id: 8,
+    title: "2D Ray Tracing",
+    language: 'Swift',
+    techStack: 'SwiftUI, UIKit',
+    description: 'A ray tracer built in both UIKit and SwiftUI.',
+    images: [...[1, 2, 3, 4, 5].map(imgName => process.env.PUBLIC_URL + '/images/projects/raytracing/' + imgName + '.png'), process.env.PUBLIC_URL + '/images/projects/raytracing/6.mp4'],
+  },
+  {
+    id: 9,
     title: 'Flask Master',
     language: 'Swift',
     techStack: 'SwiftUI, StoreKit, UserDefaults',
-    description: 'A simple, yet addicting game where you try to sort colors into flasks',
-    images: [1, 2, 3, 4, 5].map(imgName => process.env.PUBLIC_URL + '/images/projects/flaskmaster/' + imgName + '.jpg'),
+    description: 'Flask Master is a 2D color sorting game built with accessibility (A11y) in mind. With voiceover, dynamicly colored backgrounds, and multiple difficulties, anyone can become a pro.',
+    images: [1, 2, 3, 4, 5, 6, 7].map(imgName => process.env.PUBLIC_URL + '/images/projects/flaskmaster/' + imgName + '.png'),
   },
+  {
+    id: 10,
+    title: 'Make-A-Map',
+    language: 'Swift',
+    techStack: 'SwiftUI, MapKit, SwiftData',
+    description: 'A build-your-own map app where you can mark places of interest, add a path by tapping to connect points, or record a path as you walk a trail using user\'s location.',
+    images: [
+      ...[1, 2, 3].map(imgName => process.env.PUBLIC_URL + '/images/projects/makeamap/' + imgName + '.png'), 
+      process.env.PUBLIC_URL + '/images/projects/makeamap/5.mp4', 
+      process.env.PUBLIC_URL + '/images/projects/makeamap/6.png'
+    ],
+  }
 ];
 
 export default function Projects() {
+  // TODO: - Pull from firebase store so it's easier to update the site
   const projects = defaultProjects.toReversed();
 
   return (
@@ -68,8 +113,9 @@ export default function Projects() {
               }
             </div>
           )
-        }
-      )}
+        })}
+
+        <p style={{ color: "#AAAAAA", fontSize: "12px", width: "80%" }}>This is just a taste of the projects I've done. There are many others that I plan to add here soon, others that I need to finish, and others still that I want to make. Check back again to see what I've been working on.</p>
       </div>
     </section>
   )

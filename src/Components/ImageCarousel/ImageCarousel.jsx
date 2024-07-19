@@ -39,7 +39,7 @@ export default function ImageCarousel(props) {
       <div className="slideshow_item" style={{ display: props.isShown ? "block" : "none" }}>
         <div className="project-img">
           <a target="_blank" rel="noopener noreferrer" href={props.url ?? "#"}>
-            { re.exec(props.imageSource)[1].toLowerCase() == "mp4" &&
+            { re.exec(props.imageSource)[1].toLowerCase() === "mp4" &&
               <video width="100%" height="486px" autoplay muted loop controls>
                 <source src={props.imageSource} type="video/mp4" />
               </video>
