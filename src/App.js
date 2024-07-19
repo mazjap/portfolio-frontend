@@ -12,7 +12,7 @@ function App() {
       if (e.key === 's') {
         e.preventDefault();
       } else if (e.key === 'b') {
-        addLog("Build Succeeded");
+        addLog('Build Succeeded');
         e.preventDefault();
       }
     }
@@ -24,13 +24,13 @@ function App() {
   });
 
   return (
-    <div className="app">
-      <header className="app-header">
+    <div className='app'>
+      <header className='app-header'>
         <h1>Jordan Christensen</h1>
         <p>Welcome to my portfolio website!</p>
       </header>
 
-      <main className="app-main">
+      <main className='app-main'>
         <Projects />
         <Skills />
         <Experience />

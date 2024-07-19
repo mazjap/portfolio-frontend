@@ -1,4 +1,4 @@
-import "./Experience.css"
+import './Experience.css'
 
 const defaultExperience = [
   {
@@ -22,16 +22,16 @@ export default function Experience() {
   const experience = defaultExperience.toReversed();
 
   return (
-    <section className="section experience-section">
+    <section className='section experience-section'>
       <h2>Experience</h2>
       {experience.map(exp => {
-        const descriptionParagraphs = exp.description.split("\n").map((section, index) => {
+        const descriptionParagraphs = exp.description.split('\n').map((section, index) => {
           return { key: index, text: section }
         })
         return (
-          <div key={exp.id} className="experience-card">
+          <div key={exp.id} className='experience-card'>
             <h3>{exp.title}</h3>
-            <p>{exp.company ?? ""}</p>
+            <p>{exp.company ?? ''}</p>
             <p>{exp.duration}</p>
             {
               descriptionParagraphs.map(({key, text}) => <p key={key}>{text}</p>)

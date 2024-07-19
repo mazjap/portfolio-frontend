@@ -95,29 +95,29 @@ const defaultProjects = [
     id: 5,
     title: 'NeoMusic',
     language: 'Swift',
-    techStack: 'SwiftUI, MusicKit, ',
+    techStack: 'SwiftUI, MusicKit',
     description: 'A simple, but elegant music player with fun features and a design based in Neomorphism. Music is a passion of mine, so what better way to gain a better understanding of SwiftUI and custom components then making a music player.',
     images: [neomusic1, neomusic2, neomusic3, neomusic4, neomusic5],
   },
   {
     id: 6,
-    title: "2048 Clone",
-    language: "Swift",
+    title: '2048 Clone',
+    language: 'Swift',
     techStack: 'SwiftUI',
     description: 'Built a 2048 clone, because I like 2048 as well as building my own versions of things.',
     images: [twenty48_1, twenty48_2, twenty48_3, twenty48_4],
   },
   {
     id: 7,
-    title: "fWords",
-    language: "Swift",
+    title: 'fWords',
+    language: 'Swift',
     techStack: 'SwiftUI',
     description: 'Built a Wordle clone, because I like Wordle, and building my own versions of things.',
     images: [fwords1, fwords2, fwords3, fwords4, fwords5, fwords6],
   },
   {
     id: 8,
-    title: "2D Ray Tracing",
+    title: '2D Ray Tracing',
     language: 'Swift',
     techStack: 'SwiftUI, UIKit',
     description: 'A ray tracer built in both UIKit and SwiftUI.',
@@ -146,21 +146,21 @@ export default function Projects() {
   const projects = defaultProjects.toReversed();
 
   return (
-    <section className="section projects-section">
+    <section className='section projects-section'>
       <h2>Projects</h2>
-      <div className="projects-container">
+      <div className='projects-container'>
         {projects.map(project => {
-          const descriptionParagraphs = project.description.split("\n").map((section, index) => {
+          const descriptionParagraphs = project.description.split('\n').map((section, index) => {
             return { key: index, text: section }
           })
           return (
-            <div key={project.id} className="project-card">
+            <div key={project.id} className='project-card'>
               { project.images &&
                 <ImageCarousel images={project.images} />
               }
-              <span style={{ color: "#999" }}>{project.language}</span>
+              <span style={{ color: '#999' }}>{project.language}</span>
               <h3>{project.title}</h3>
-              <span style={{ fontSize: "10px"}}>{project.techStack}</span>
+              <span style={{ fontSize: '10px'}}>{project.techStack}</span>
               {
                 descriptionParagraphs.map(({key, text}) => <p key={key}>{text}</p>)
               }
@@ -168,7 +168,7 @@ export default function Projects() {
           )
         })}
 
-        <p style={{ color: "#AAAAAA", fontSize: "12px", width: "80%" }}>This is just a taste of the projects I've done. There are many others that I plan to add here soon, others that I need to finish, and others still that I want to make. Check back again to see what I've been working on.</p>
+        <p style={{ color: '#AAAAAA', fontSize: '12px', width: '80%' }}>This is just a taste of the projects I've done. There are many others that I plan to add here soon, others that I need to finish, and others still that I want to make. Check back again to see what I've been working on.</p>
       </div>
     </section>
   )

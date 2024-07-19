@@ -59,7 +59,7 @@ function Console() {
   useEffect(() => { // Log welcome message if no other logs exist
     let isMounted = true;
     let timer = setTimeout(() => {
-      if (isMounted && logs.length === 0) addLog('Welcome to my portfolio. Type "help" to get started');
+      if (isMounted && logs.length === 0) addLog('Welcome to my portfolio. Type \'help\' to get started');
     }, 1000);
 
     return () => {
@@ -149,7 +149,7 @@ function Console() {
       <div className='console' id='console' style={isConsoleExpanded ? { height: '200px' } : null} ref={consoleRef}>
         {isConsoleExpanded && (
           <div className='output' ref={outputRef} style={{ paddingBottom: floatingSize.height }}>
-            {logs.filter(({ message }) => message.includes(filter)).map(({ message, level }, index) => <p className='log' key={[index + message + level].join("-")}>{logPrefixForLevel(level) + ' ' + message}</p>)}
+            {logs.filter(({ message }) => message.includes(filter)).map(({ message, level }, index) => <p className='log' key={[index + message + level].join('-')}>{logPrefixForLevel(level) + ' ' + message}</p>)}
           </div>
         )}
         <div className='floating' ref={floatingRef} style={{

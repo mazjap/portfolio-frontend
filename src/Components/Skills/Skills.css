@@ -15,5 +15,5 @@
 
 .skills-list li:not(:last-child)::after {
   margin-left: 10px;
-  content: "•";
+  content: '•';
 }

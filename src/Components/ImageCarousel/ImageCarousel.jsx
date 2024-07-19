@@ -30,15 +30,15 @@ export default function ImageCarousel(props) {
 
   const Image = (props) => {
     return (
-      <div className="slideshow_item" style={{ display: props.isShown ? "block" : "none" }}>
-        <div className="project-img">
-          <a target="_blank" rel="noopener noreferrer" href={props.url ?? "#"}>
-            { re.exec(props.imageSource)[1].toLowerCase() === "mp4" &&
-              <video width="100%" height="486px" autoPlay muted loop controls>
-                <source src={props.imageSource} type="video/mp4" />
+      <div className='slideshow_item' style={{ display: props.isShown ? 'block' : 'none' }}>
+        <div className='project-img'>
+          <a target='_blank' rel='noopener noreferrer' href={props.url ?? '#'}>
+            { re.exec(props.imageSource)[1].toLowerCase() === 'mp4' &&
+              <video width='100%' height='486px' autoPlay muted loop controls>
+                <source src={props.imageSource} type='video/mp4' />
               </video>
             }
-            <img src={props.imageSource} alt={props.altText ?? ""} />
+            <img src={props.imageSource} alt={props.altText ?? ''} />
           </a>
         </div>
       </div>
@@ -46,10 +46,10 @@ export default function ImageCarousel(props) {
   }
 
   return (
-    <div className="slideshow_container">
+    <div className='slideshow_container'>
       {(props.images ?? []).map((url, index) => <Image redirect={props.url} imageSource={url} key={url} isShown={index === imageIndex} />)}
-      <button className="left arrow" onClick={decrementImage}>❮</button>
-      <button className="right arrow" onClick={incrementImage}>❯</button>
+      <button className='left arrow' onClick={decrementImage}>❮</button>
+      <button className='right arrow' onClick={incrementImage}>❯</button>
     </div>
   )
 }

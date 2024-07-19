@@ -28,10 +28,10 @@ export default function Education() {
   const education = defaultEducation;
 
   return (
-    <section className="section education-section">
+    <section className='section education-section'>
       <h2>Education</h2>
       {education.map((edu) => (
-        <div key={edu.id} className="education-card">
+        <div key={edu.id} className='education-card'>
           <h3>{edu.degree}</h3>
           <p>{edu.university}</p>
           <p>{edu.duration}</p>

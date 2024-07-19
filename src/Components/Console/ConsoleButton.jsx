@@ -14,7 +14,7 @@ const svgs = {
 
 const ConsoleButton = forwardRef((props, ref) => {
   const { isActive, onClick } = props;
-  const color = props.color ?? (isActive ? "#097aff" : "white");
+  const color = props.color ?? (isActive ? '#097aff' : 'white');
   const svg = props.svg ?? 'trash';
 
   return (
