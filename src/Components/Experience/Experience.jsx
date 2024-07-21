@@ -15,7 +15,7 @@ const defaultExperience = [
     title: 'iOS Developer',
     company: 'Self-Employed',
     duration: 'October 2023 - Present',
-    description: 'Worked on a wide array of projects to build a stronger understanding of my tools. See the list of projects above for a taste of what I\'ve been working on.'
+    description: 'Worked on a wide array of projects to build a stronger understanding of my tools. See the list of projects below for a taste of what I\'ve been working on.'
   },
 ];
 

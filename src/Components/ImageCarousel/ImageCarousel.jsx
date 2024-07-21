@@ -40,6 +40,9 @@ export default function ImageCarousel(props) {
             }
             <img src={props.imageSource} alt={props.altText ?? ''} />
           </a>
+          <script>
+            console.log('From the script tag...')
+          </script>
         </div>
       </div>
     )

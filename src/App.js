@@ -27,13 +27,13 @@ function App() {
     <div className='app'>
       <header className='app-header'>
         <h1>Jordan Christensen</h1>
-        <p>Welcome to my portfolio website!</p>
+        <p>Welcome to my portfolio website</p>
       </header>
 
       <main className='app-main'>
+        <Experience />
         <Projects />
         <Skills />
-        <Experience />
         <Education />
       </main >
 
