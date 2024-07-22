@@ -146,7 +146,7 @@ export default function Projects() {
   const projects = defaultProjects.toReversed();
 
   return (
-    <section className='section projects-section'>
+    <section id='projects' className='section projects-section'>
       <h2>Projects</h2>
       <div className='projects-container'>
         {projects.map(project => {

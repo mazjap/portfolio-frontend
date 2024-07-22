@@ -35,7 +35,7 @@ export default function Skills() {
   const skills = defaultSkills;
 
   return (
-    <section className='section skills-section'>
+    <section id='skills' className='section skills-section'>
       <h2>Skills</h2>
       <ul className='skills-list'>
         {

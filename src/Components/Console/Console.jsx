@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import Log from './Log';
+import Navigation from './Navigation';
 import ConsoleButton from './ConsoleButton';
 import { useConsole } from '../../ContextProviders/ConsoleContext';
 import { useSettings } from '../../ContextProviders/SettingsContext';
@@ -24,9 +26,27 @@ function Console() {
 
   const [input, setInput] = useState('');
   const [filter, setFilter] = useState('');
+  const [isSidebarLeftOpen, setSidebarLeftOpen] = useState(true);
+  const [isSidebarRightOpen, setSidebarRightOpen] = useState(true);
   const [isExecutableSelected, setExecutableSelected] = useState(true);
   const [floatingSize, setFloatingSize] = useState({ width: 0, height: 0 });
   const [optionsButtonPosition, setOptionsButtonPosition] = useState({ bottom: 0, left: 0 });
+
+  const toggleLeftSidebar = () => {
+    setSidebarLeftOpen(oldVal => !oldVal)
+
+    if (!isSidebarRightOpen) {
+      setSidebarRightOpen(oldVal => !oldVal)
+    }
+  }
+
+  const toggleRightSidebar = () => {
+    setSidebarRightOpen(oldVal => !oldVal)
+
+    if (!isSidebarLeftOpen) {
+      setSidebarLeftOpen(oldVal => !oldVal)
+    }
+  }
 
   const handleInput = () => {
     if (input === 'clear') {
@@ -148,8 +168,10 @@ function Console() {
     <>
       <div className='console' id='console' style={isConsoleExpanded ? { height: '200px' } : null} ref={consoleRef}>
         {isConsoleExpanded && (
-          <div className='output' ref={outputRef} style={{ paddingBottom: floatingSize.height }}>
-            {logs.filter(({ message }) => message.includes(filter)).map(({ message, level }, index) => <p className='log' key={[index + message + level].join('-')}>{logPrefixForLevel(level) + ' ' + message}</p>)}
+          <div className='content-container'>
+            { isSidebarLeftOpen && <Navigation /> }
+            { (isSidebarLeftOpen && isSidebarRightOpen) && <div className='divider' /> }
+            { isSidebarRightOpen && <Log filter={filter} floatingHeight={floatingSize.height} /> }
           </div>
         )}
         <div className='floating' ref={floatingRef} style={{
@@ -157,7 +179,7 @@ function Console() {
           paddingTop: isConsoleExpanded ? '0' : '5px'
         }}>
           {isConsoleExpanded && (
-            <div className='input'>
+            <div className='input' style={{ marginLeft: isSidebarLeftOpen ? 'calc(50% + 6px)' : '0', display: isSidebarRightOpen ? null : 'none' }}>
               <p>(lldb)</p>
               <input
                 type='text'
@@ -188,8 +210,8 @@ function Console() {
                 <p>|</p>
               </>
             )}
-            <ConsoleButton svg='sidebarLeft' isActive={false} onClick={() => { addLog('Left sidebar clicked') }} />
-            <ConsoleButton svg='sidebarRight' isActive={false} onClick={() => { addLog('Right sidebar clicked') }} />
+            <ConsoleButton svg='sidebarLeft' isActive={isSidebarLeftOpen} onClick={() => { toggleLeftSidebar(); addLog('Left sidebar toggled') }} />
+            <ConsoleButton svg='sidebarRight' isActive={isSidebarRightOpen} onClick={() => { toggleRightSidebar(); addLog('Right sidebar toggled') }} />
           </div>
         </div>
       </div>
