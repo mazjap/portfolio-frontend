@@ -4,7 +4,7 @@ import Navigation from './Navigation';
 import ConsoleButton from './ConsoleButton';
 import { useConsole } from '../../ContextProviders/ConsoleContext';
 import { useSettings } from '../../ContextProviders/SettingsContext';
-import { formatCommands, logPrefixForLevel } from './consoleUtils';
+import { formatCommands } from './consoleUtils';
 
 import './Console.css';
 
@@ -14,10 +14,9 @@ const helpMessage = 'Usage:\n' + formatCommands([
 ]);
 
 function Console() {
-  const { logs, addLog, clearLogs, isShowingOptions, toggleOptionsPopover, setConsoleSize } = useConsole();
+  const { addLog, clearLogs, isShowingOptions, toggleOptionsPopover, setConsoleSize } = useConsole();
   const { isConsoleExpanded, toggleConsole } = useSettings();
 
-  const outputRef = useRef(null);
   const floatingRef = useRef(null);
   const consoleRef = useRef(null);
   const popoverRef = useRef(null);
@@ -69,24 +68,6 @@ function Console() {
   const checkForEnterKey = (e) => {
     if (e.key === 'Enter') handleInput();
   };
-
-  useEffect(() => { // Scroll to the bottom of the output on change of logs
-    if (outputRef.current) {
-      outputRef.current.scrollTop = outputRef.current.scrollHeight;
-    }
-  }, [logs]);
-
-  useEffect(() => { // Log welcome message if no other logs exist
-    let isMounted = true;
-    let timer = setTimeout(() => {
-      if (isMounted && logs.length === 0) addLog('Welcome to my portfolio. Type \'help\' to get started');
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-      isMounted = false;
-    };
-  }, []); // No dependencies because this useEffect should only ever run once
 
   useEffect(() => { // Calculate size of .console and .floating when .console's direct children are mutated
     const targetNode = consoleRef.current;

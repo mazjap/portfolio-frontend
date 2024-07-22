@@ -1,5 +1,5 @@
-import { useRef, useEffect, useState } from 'react';
-import { logPrefixForLevel, formatCommands } from './consoleUtils';
+import { useRef, useEffect } from 'react';
+import { logPrefixForLevel } from './consoleUtils';
 import { useConsole } from '../../ContextProviders/ConsoleContext';
 
 export default function Log(props) {
