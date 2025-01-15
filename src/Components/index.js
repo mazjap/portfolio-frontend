@@ -5,5 +5,6 @@ import Skills from './Skills/Skills';
 import Projects from './Projects/Projects';
 import Experience from './Experience/Experience';
 import Education from './Education/Education';
+import Header from './Header/Header';
 
-export { Console, Contact, Footer, Skills, Projects, Experience, Education };
+export { Console, Contact, Footer, Skills, Projects, Experience, Education, Header };

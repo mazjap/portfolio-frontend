@@ -1,46 +1,16 @@
-import { useEffect } from 'react';
-import { useConsole } from './ContextProviders/ConsoleContext';
-import { Console, Contact, Footer, Skills, Projects, Experience, Education } from './Components/index';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home, NumbaseSupport } from './Pages';
 
 import './App.css';
 
 function App() {
-  const { addLog } = useConsole();
-
-  const handleKeyDown = (e) => {
-    if ((e.metaKey || e.ctrlKey)) {
-      if (e.key === 's') {
-        e.preventDefault();
-      } else if (e.key === 'b') {
-        addLog('Build Succeeded');
-        e.preventDefault();
-      }
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  });
-
   return (
-    <div className='app'>
-      <header className='app-header'>
-        <h1>Jordan Christensen</h1>
-        <p>Welcome to my portfolio website</p>
-      </header>
-
-      <main className='app-main'>
-        <Experience />
-        <Projects />
-        <Skills />
-        <Education />
-      </main >
-
-      <Contact />
-      <Footer />
-      <Console />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/numbase-support" element={<NumbaseSupport />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

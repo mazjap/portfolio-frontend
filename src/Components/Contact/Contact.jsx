@@ -21,9 +21,6 @@ function Contact() {
           <a href='https://www.linkedin.com/in/jordan-a-christensen/' target='_blank' rel='noopener noreferrer'>
             <LinkedIn className='social-icon' />
           </a>
-          <a href='https://twitter.com/joshington_1' target='_blank' rel='noopener noreferrer'>
-            <Twitter className='social-icon' />
-          </a>
         </div>
       </div>
     </section>

@@ -9,11 +9,6 @@
   scrollbar-width: 0;
 }
 
-.app-header {
-  background-color: #f8f8f7;
-  padding: 60px 20px;
-}
-
 h1 {
   color: #000;
   font-size: 24px;
@@ -45,10 +40,6 @@ a:hover {
 section {
   text-align: center;
   padding: 20px;
-}
-
-.app-header {
-  margin-bottom: 40px;
 }
 
 .app-header h1 {

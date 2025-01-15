@@ -1,0 +1,12 @@
+.app-header {
+  background-color: #f8f8f7;
+  padding: 60px 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
